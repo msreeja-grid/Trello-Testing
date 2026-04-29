@@ -70,10 +70,16 @@ ACCESS_TOKEN_EXPIRE_MINUTES=60
 
 ## API Documentation
 
-Open the API docs:
+Open the Swagger docs:
 
 ```bash
 http://localhost:8000/docs
+```
+
+See detailed project documentation in:
+
+```bash
+docs/Project_Documentation.md
 ```
 
 ## Authentication
