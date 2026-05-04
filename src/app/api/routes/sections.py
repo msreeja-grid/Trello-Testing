@@ -35,7 +35,7 @@ def create_section(
     if board.owner_id != current_user.id:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only board owner can create sections")
 
-    new_section = Section(**section_data.dict())
+    new_section = Section(**section_data.model_dump())
     db.add(new_section)
     db.commit()
     db.refresh(new_section)

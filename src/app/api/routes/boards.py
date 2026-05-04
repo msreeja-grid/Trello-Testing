@@ -26,7 +26,7 @@ def board_accessible(board: Board, current_user: User, db: Session):
 
 @router.post("/", response_model=BoardOut)
 def create_board(board: BoardCreate, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    new_board = Board(**board.dict(), owner_id=current_user.id)
+    new_board = Board(**board.model_dump(), owner_id=current_user.id)
     db.add(new_board)
     db.commit()
     db.refresh(new_board)
@@ -35,9 +35,13 @@ def create_board(board: BoardCreate, db: Session = Depends(get_db), current_user
 
 @router.get("/", response_model=list[BoardOut])
 def get_boards(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    invited_board_ids = db.query(Invitation.board_id).filter(Invitation.invited_user_id == current_user.id).subquery()
     boards = db.query(Board).filter(
-        or_(Board.owner_id == current_user.id, Board.id.in_(invited_board_ids))
+        or_(
+            Board.owner_id == current_user.id,
+            Board.id.in_(
+                db.query(Invitation.board_id).filter(Invitation.invited_user_id == current_user.id)
+            )
+        )
     ).all()
     return boards
 

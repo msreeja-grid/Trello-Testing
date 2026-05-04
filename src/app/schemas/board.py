@@ -1,5 +1,5 @@
 from typing import List
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from app.schemas.section import SectionOut
 from app.schemas.ticket import TicketOut
 from app.schemas.user import UserOut
@@ -16,8 +16,7 @@ class BoardOut(BaseModel):
     name: str
     description: str
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class BoardDetail(BoardOut):
     owner_id: int
@@ -26,5 +25,4 @@ class BoardDetail(BoardOut):
     users: List[UserOut]
     invitations: List[str]
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

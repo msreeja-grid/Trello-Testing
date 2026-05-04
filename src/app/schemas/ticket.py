@@ -1,11 +1,11 @@
 from typing import Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 class TicketCreate(BaseModel):
     name: str
     description: str
     section_id: int
-    assigned_to: int
+    assigned_to: Optional[int] = None
 
 class TicketUpdate(BaseModel):
     name: Optional[str] = None
@@ -18,8 +18,7 @@ class TicketOut(BaseModel):
     name: str
     description: str
     section_id: int
-    assigned_to: int
+    assigned_to: Optional[int]
     created_by: int
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

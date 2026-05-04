@@ -1,4 +1,4 @@
-# Trello REST API
+# Trello  API
 
 A FastAPI-based REST API for a Trello-style project management application.
 
@@ -49,8 +49,83 @@ A FastAPI-based REST API for a Trello-style project management application.
 
 6. Start the application:
    ```bash
-   uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+   PYTHONPATH=src uvicorn src.app.main:app --reload --host 0.0.0.0 --port 3000
    ```
+
+   **Note:** The application runs on HTTP by default on port 3000. Modern browsers will show a "Not Secure" warning, which is normal for development. For production, use HTTPS with a reverse proxy like Nginx.
+
+## API Documentation
+
+Once the server is running, visit:
+- **Interactive API Docs**: http://localhost:3000/docs (Swagger UI)
+- **Alternative Docs**: http://localhost:3000/redoc
+
+## Testing
+
+This project includes comprehensive unit and integration tests to ensure code quality and functionality.
+
+### Test Setup
+
+1. Ensure you have activated the virtual environment and installed dependencies as described in the Setup section.
+
+2. Install testing dependencies (if not already included in requirements.txt):
+   ```bash
+   pip install pytest httpx pytest-cov pytest-asyncio
+   ```
+
+### Running Tests
+
+Run all tests with coverage:
+```bash
+pytest
+```
+
+Run tests with verbose output:
+```bash
+pytest -v
+```
+
+Run only unit tests:
+```bash
+pytest tests/unit/
+```
+
+Run only integration tests:
+```bash
+pytest tests/integration/
+```
+
+Generate HTML coverage report:
+```bash
+pytest --cov-report=html
+open htmlcov/index.html
+```
+
+Check coverage percentage:
+```bash
+pytest --cov-report=term-missing
+```
+
+### Test Coverage Requirements
+
+- **Unit Tests**: At least 50% of functions must be covered
+- **Integration Tests**: At least 50% of endpoints must be covered
+- **Overall Coverage**: Minimum 50% code coverage required
+
+### Test Structure
+
+- `tests/unit/`: Unit tests for individual functions and utilities
+- `tests/integration/`: Integration tests for API endpoints
+- `tests/conftest.py`: Shared test fixtures and configuration
+
+### Writing Tests
+
+When adding new features:
+
+1. Write unit tests for utility functions in `tests/unit/`
+2. Write integration tests for new endpoints in `tests/integration/`
+3. Ensure all tests pass and coverage requirements are met
+4. Run `pytest` before committing changes
 
 ## Environment Configuration
 

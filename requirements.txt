@@ -3,5 +3,10 @@ uvicorn
 sqlalchemy
 psycopg2-binary
 python-jose
-passlib[bcrypt]
+bcrypt
 pydantic
+python-multipart
+pytest
+httpx
+pytest-cov
+pytest-asyncio
